@@ -1,5 +1,5 @@
 # RepositoryExample
-Example what patterns can be used in Repository service layer.
+######## Example what patterns can be used in Repository service layer. ########
 
 **Hi all !**
 
