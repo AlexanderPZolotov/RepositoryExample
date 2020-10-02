@@ -13,7 +13,7 @@ My name is Alexander Zolotov - and this is a simple example of my code. Any ques
 In this example I show how to follow **SOLID** principles and use some patterns.
 
 ## Decorator pattern: ##
- In **RepositoryServiceDaoLogger** I decorate repository classes for add functionalty, in current case - logging.
+ In **RepositoryServiceDaoLogger** I decorate repository classes for additional functionality, in the current case - logging.
 
 So - I follow 
 > **S**OLID  - ***Single Responsibility Principle***—classes should have a single responsibility.
