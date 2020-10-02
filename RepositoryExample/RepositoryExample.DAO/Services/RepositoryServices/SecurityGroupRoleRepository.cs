@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using RepositoryExample.DAO.Base;
+﻿using RepositoryExample.DAO.Base;
 using RepositoryExample.DAO.DbConnections;
 using RepositoryExample.DAO.Model;
 
@@ -14,5 +11,5 @@ namespace RepositoryExample.DAO.Services.RepositoryServices
 			DataContext = context;
 		}
 	}
-	}
+	
 }

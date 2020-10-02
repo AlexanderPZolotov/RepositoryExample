@@ -35,8 +35,6 @@ namespace RepositoryExample.DAO.Base
 
 		public virtual async Task<T> Create(T entity, CancellationToken token = default)
 		{
-			var ret = entity;
-
 			await using (var t = await DataContext.Database.BeginTransactionAsync(token))
 			{
 				try
@@ -45,19 +43,17 @@ namespace RepositoryExample.DAO.Base
 					
 					await DataContext.SaveChangesAsync(token);
 					
-					ret = newEntity.Entity;
-
 					await t.CommitAsync(token);
+
+					return newEntity.Entity;
 				}
-				catch (Exception e)
+				catch (Exception )
 				{
 					await t.RollbackAsync(token);
 
 					throw;
 				}
 			}
-
-			return ret;
 		}
 
 		public virtual async Task<T> Update(T entity, CancellationToken token = default)
@@ -83,7 +79,7 @@ namespace RepositoryExample.DAO.Base
 					return exists;
 
 				}
-				catch (Exception e)
+				catch (Exception)
 				{
 					await t.RollbackAsync(token);
 
@@ -105,7 +101,7 @@ namespace RepositoryExample.DAO.Base
 
 					await t.CommitAsync(token);
 				}
-				catch (Exception e)
+				catch (Exception)
 				{
 					await t.RollbackAsync(token);
 
