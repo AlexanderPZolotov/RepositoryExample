@@ -4,48 +4,52 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using RepositoryExample.DAO.Interfaces;
-using RepositoryExample.DAO.Model;
+using RepositoryExample.DAO.Model.Base;
 
 namespace RepositoryExample.DAO.Base
 {
-	public abstract class RepositoryServiceDao<T> : IDisposable, IRepositoryServiceDAO<T> where T : BaseGuidIdTable
+	public abstract class RepositoryServiceDao<T> : IDisposable, IRepositoryServiceDao<T> where T : BaseGuidIdTable
 	{
-		public DbContext _dbContext { get; set; }
+		public DbContext DataContext { get; set; }
 
+		protected RepositoryServiceDao(DbContext context)
+		{
+			DataContext = context;
+		}
 		public virtual IQueryable<T> GetAll()
 		{
-			return  _dbContext.Set<T>().AsQueryable();
+			return  DataContext.Set<T>().AsQueryable();
 		}
 
 		public async virtual Task<T> GetSingle(Guid id)
 		{
-			return await _dbContext.Set<T>().FirstAsync(i => i.Id == id);
+			return await DataContext.Set<T>().FirstAsync(i => i.Id == id);
 		}
 
 		public virtual async Task<T> Create(T entity, CancellationToken token = default)
 		{
-			var t = await _dbContext.Set<T>().AddAsync(entity, token);
+			var newEntity = await DataContext.Set<T>().AddAsync(entity, token);
 
-			await _dbContext.SaveChangesAsync(token);
+			await DataContext.SaveChangesAsync(token);
 
-			return t.Entity;
+			return newEntity.Entity;
 		}
 
-		public virtual Task<T> Update(T entity)
+		public virtual Task<T> Update(T entity, CancellationToken token = default)
 		{
 			throw new NotImplementedException();
 		}
 
-		public virtual async Task Delete(Guid id)
+		public virtual async Task Delete(Guid id, CancellationToken token = default)
 		{
-			_dbContext.Remove(GetSingle(id));
+			DataContext.Remove(GetSingle(id));
 
-			await _dbContext.SaveChangesAsync();
+			await DataContext.SaveChangesAsync(token);
 		}
 
 		public void Dispose()
 		{
-			_dbContext?.Dispose();
+			DataContext?.Dispose();
 		}
 	}
 }

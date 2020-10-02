@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace RepositoryExample.DAO.Model
+namespace RepositoryExample.DAO.Model.Base
 {
 	public class BaseGuidIdTable
 	{
