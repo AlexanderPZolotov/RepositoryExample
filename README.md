@@ -19,7 +19,7 @@ And I follow other too:
 As we can see: 
 >  **RepositoryServiceDaoLogger** have responsible for ***logging***, **RepositoryServiceDao** and childs of them - for ***data access***. And we can change logging or data access in different classes without any dependencies.
 
-## Repository and Unit of Work pattern: ##
+## Repository and Unit of Work patterns: ##
 
 In abstract **RepositoryServiceDao** have been implemented all necessary data access logic. That is possible because Entity Framework has a DbSet class that has Add and Remove method and therefore looks like a ***Repository*** the DbContext class has the method SaveChanges and so looks like the ***Unit of Work***. 
 And inside *RepositoryServices* folder we can see implementation repositories for all table classes.
