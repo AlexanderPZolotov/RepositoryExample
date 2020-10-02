@@ -15,7 +15,7 @@ namespace RepositoryExample.DAO.Interfaces
 		Task Delete(Guid id, CancellationToken token = default);
 		void Dispose();
 		IQueryable<T> GetAll();
-		Task<T> GetSingle(Guid id);
+		Task<T> GetSingle(Guid id, CancellationToken token = default);
 		Task<T> Update(T entity, CancellationToken token = default);
 	}
 }
